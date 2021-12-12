@@ -1,0 +1,34 @@
+{% extends 'encyclopedia/layout.html' %}
+
+{% block title %}
+    Create New Page
+{% endblock %}
+
+{% block body%}
+    {% if edit %}
+        <h1>Editing {{title}}</h1>
+    {% else %}
+        <h1>New entry is coming!</h1>
+    {% endif %}
+
+
+    {% if existing %}
+        <div class="alert alert-danger" role="alert">
+            
+                <strong> This Page Already Exists. </strong>
+                If you want to view or edit it, <a href="{% url 'page' title %}">Click here</a>.
+            
+        </div>
+        <div class="alert alert-info" role="alert">
+            or you can change the entry name down here
+        </div>
+    {% endif %}
+    <br>
+    <div class="form-group">
+        <form action="{% url 'createNewPage' %}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-secondary">
+        </form>
+    </div>
+{% endblock%}
